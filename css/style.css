@@ -645,9 +645,17 @@ label.message-text {
   padding: 200px 40px 40px 40px!important;
   overflow-y: auto;
   }
+  .tag-block-sm{
+    display:none;
+    
+  }
   .d-block{
     display:block !important;
   }
+    .tag-block-sm{
+      display:none!important
+    }
+  
   h1 {
     font-size: 2.4rem;
   }
@@ -657,6 +665,14 @@ label.message-text {
   .menu-fixed-content{
     margin-top: 80px;
   }
+}
+.tag-block-sm{
+  display:block!important;
+  height:inherit!important;
+    right: 2rem!important;
+    min-height:unset!important;
+    min-width: unset!important;
+    left:unset!important;
 }
 .d-sm-none{
   display:none ;
@@ -989,7 +1005,7 @@ header {
   background-size: cover;
   height: auto;
     width: 100%;
-    min-height: 998px;
+    min-height: 960px;
 }
 
 .page-slide {
