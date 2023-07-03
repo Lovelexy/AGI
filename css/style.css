@@ -662,7 +662,7 @@ label.message-text {
   display:none ;
   position: fixed;
   top: 0;
-  width: 180px;
+  width: 150px;
 }
 
 .menu-fixed{
@@ -989,7 +989,7 @@ header {
   background-size: cover;
   height: auto;
     width: 100%;
-    min-height: 840px;
+    min-height: 998px;
 }
 
 .page-slide {
