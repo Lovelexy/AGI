@@ -651,6 +651,9 @@ label.message-text {
   }
   .d-block{
     display:block !important;
+    position: absolute!important;
+    top: 0;
+    width: 150px;
   }
     .tag-block-sm{
       display:none!important
@@ -663,7 +666,7 @@ label.message-text {
     background-position: left center!important;
   }
   .menu-fixed-content{
-    margin-top: 80px;
+    padding-top: 11rem;
   }
 }
 .tag-block-sm{
