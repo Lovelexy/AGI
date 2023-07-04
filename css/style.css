@@ -722,7 +722,10 @@ label.message-text {
   text-transform: none;
   margin-bottom: 8rem;
 }
-.menu-fixed-content button{
+.menu-fixed-content a{
+  color: #ffffff;
+  text-align: center;
+  text-decoration: none !important;
   font-size: 2rem;
   padding: 1.5rem 4rem;
   margin: 5rem 0;
@@ -732,7 +735,7 @@ label.message-text {
   line-height: 2.4rem;
   transition: 1s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
-.menu-fixed-content button:hover{  
+.menu-fixed-content a:hover{  
   background: #a77b43;  
   scale: 1.07;
   
