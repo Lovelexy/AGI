@@ -667,7 +667,7 @@ label.message-text {
   }
 }
 .tag-block-sm{
-  display:block!important;
+  display:block;
   height:inherit!important;
     right: 2rem!important;
     min-height:unset!important;
