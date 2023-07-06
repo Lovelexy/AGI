@@ -1,27 +1,25 @@
 <?php
-// Configure your Subject Prefix and Recipient here
-$subjectPrefix = '';
-$emailTo       = '[Project Name]';
+$subjectPrefix = 'Prefixo';
+$emailTo       = 'lucas_rc15@live.com';  // altere isso para o endereço de email desejado
 
 $errors = array(); // array to hold validation errors
 $data   = array(); // array to pass back data
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name    = stripslashes(trim($_POST['name']));
+    $name    = stripslashes(trim($_POST['nome']));
     $email   = stripslashes(trim($_POST['email']));
-    $message = stripslashes(trim($_POST['message']));
-    $spam    = $_POST['textfield'];
+    $file    = $_FILES['fileToUpload'];  // recebe o arquivo carregado
 
     if (empty($name)) {
-        $errors['name'] = 'Name is required.';
+        $errors['nome'] = 'Nome é obrigatório.';
     }
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors['email'] = 'Email is invalid.';
+        $errors['email'] = 'Email é inválido.';
     }
 
-    if (empty($message)) {
-        $errors['message'] = 'Message is required.';
+    if (!isset($file) || $file['error'] === UPLOAD_ERR_NO_FILE) {
+        $errors['file'] = 'Arquivo é obrigatório.';
     }
 
     // if there are any errors in our errors array, return a success boolean or false
@@ -33,7 +31,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $body    = '
             <strong>Name: </strong>'.$name.'<br />
             <strong>Email: </strong>'.$email.'<br />
-            <strong>Message: </strong>'.nl2br($message).'<br />
         ';
 
         $headers  = "MIME-Version: 1.1" . PHP_EOL;
@@ -47,15 +44,16 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $headers .= "X-Mailer: PHP/". phpversion() . PHP_EOL;
         $headers .= "X-Originating-IP: " . $_SERVER['SERVER_ADDR'] . PHP_EOL;
 
-
-        if (empty($spam)) {
-          mail($emailTo, "=?utf-8?B?" . base64_encode($subject) . "?=", $body, $headers);
+        if (mail($emailTo, "=?utf-8?B?" . base64_encode($subject) . "?=", $body, $headers)) {
+          $data['success'] = true;
+          $data['confirmation'] = 'Parabéns. Sua mensagem foi enviada com sucesso';
+        } else {
+          $data['success'] = false;
+          $data['errors']  = 'Falha ao enviar o email.';
         }
-
-        $data['success'] = true;
-        $data['confirmation'] = 'Congratulations. Your message has been sent successfully';
     }
 
     // return all our data to an AJAX call
     echo json_encode($data);
 }
+?>

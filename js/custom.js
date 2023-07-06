@@ -52,6 +52,7 @@ $(document).ready(function () {
         }
       });
     }
+    
     /* _____________________________________
 
      Smooth Scroll
@@ -1265,7 +1266,27 @@ $(document).ready(function () {
       initPhotoSwipeFromDOM('.gallery');
       // write your init for further galleries here
     });
-
+    $('form').on('submit', function(e) {
+      e.preventDefault();
+      $.ajax({
+          url : $(this).attr('action') || window.location.pathname,
+          type: "POST",
+          data: new FormData(this),
+          contentType: false,
+          cache: false,
+          processData: false,
+          success: function(data) {
+              if (data.success) {
+                  alert(data.confirmation);
+              } else {
+                  alert("Erro ao enviar o formulário.");
+              }
+          },
+          error: function() {
+              alert("Erro ao enviar o formulário.");
+          }
+      });
+  });
     /* _____________________________________
 
      Textarea Auto Resize
