@@ -44,8 +44,8 @@ body {
 }
 @font-face {
   font-family: 'TT Norms Pro';
-  src: url('TTNormsPro-Light.woff2') format('woff2'),
-      url('TTNormsPro-Light.woff') format('woff');
+  src: url('../fontes/tt-norms-pro-light.otf') format('otf'),
+      url('../fontes/tt-norms-pro-light.otf') format('otf');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -53,8 +53,8 @@ body {
 
 @font-face {
   font-family: 'TT Norms Pro';
-  src: url('TTNormsPro-Medium.woff2') format('woff2'),
-      url('TTNormsPro-Medium.woff') format('woff');
+  src: url('../fontes/tt-norms-pro-medium.otf') format('otf'),
+      url('../fontes/tt-norms-pro-medium.otf') format('otf');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -666,7 +666,7 @@ label.message-text {
     background-position: left center!important;
   }
   .menu-fixed-content{
-    padding-top: 11rem;
+    padding: 10rem 0;
   }
 }
 .tag-block-sm{
@@ -687,37 +687,46 @@ label.message-text {
 .menu-fixed{
   position: fixed;
             width: 50rem;
-            height: 100%;
+            height: 100vh;
             background-color: #00656b;  /* fundo verde escuro */
             
             
             border-radius: 0 0 16rem 0;
             display: flex;
-            padding: 9rem;
+           padding: 6rem 8rem;
             flex-direction: column;
             font-family: "TT Norms Pro", Helvetica, Arial, sans-serif;
             justify-content: center;
-            overflow-y: hidden;
+            overflow-y:auto;
+            
     left: 0;
+    
             
 }
+::-webkit-scrollbar {
+  width: 2rem;
+}
+
 .menu-fixed-content{
   color: #ffffff;
   display: flex;
   justify-content: space-evenly;
+  position: absolute;
+  top: 8rem;
   
   align-items: flex-start;
   flex-direction: column;
+  padding-bottom:4rem;
 }
 .menu-fixed-content h1{
-  font-size: 4.4rem;
-  letter-spacing: 1px;
-  line-height: 5.4rem;
-  font-family: "TT Norms Pro", Helvetica, Arial, sans-serif;
-  margin: 0;
+  font-size: 3.4rem;
+    letter-spacing: 1px;
+    line-height: 4.4rem;
+    font-family: "TT Norms Pro", Helvetica, Arial, sans-serif;
+    margin: 0;
 }
 .menu-fixed-content h2{
-  font-size: 2rem;
+  font-size: 1.6rem;
   letter-spacing: 1px;
   font-family: "TT Norms Pro", Helvetica, Arial, sans-serif;
   font-weight: 300;
@@ -726,16 +735,16 @@ label.message-text {
 }
 .menu-fixed-content button{
   color: #ffffff;
-  text-align: center;
-  text-decoration: none !important;
-  font-size: 2rem;
-  padding: 1.5rem 4rem;
-  margin: 5rem 0;
-  border-radius: 4rem;
-  border: none;
-  background: #fcb962;
-  line-height: 2.4rem;
-  transition: 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+    text-align: center;
+    text-decoration: none !important;
+    font-size: 2rem;
+    padding: 1.2rem 3rem;
+    margin: 5rem 0;
+    border-radius: 4rem;
+    border: none;
+    background: #fcb962;
+    line-height: 2.4rem;
+    transition: 1s 
 }
 .menu-fixed-content button:hover{  
   background: #a77b43;  
