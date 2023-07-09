@@ -1,25 +1,25 @@
 <?php
-$subjectPrefix = 'Prefixo';
-$emailTo       = 'lucas_rc15@live.com';  // altere isso para o endereço de email desejado
 
-$errors = array(); // array to hold validation errors
-$data   = array(); // array to pass back data
+require './Email.php';
 
-if($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $errors = array(); // array to hold validation errors
+    $data   = array(); // array to pass back data
+
     $name    = stripslashes(trim($_POST['nome']));
     $email   = stripslashes(trim($_POST['email']));
     $file    = $_FILES['fileToUpload'];  // recebe o arquivo carregado
 
     if (empty($name)) {
-        $errors['nome'] = 'Nome é obrigatório.';
+        $errors[] = 'Nome é obrigatório.';
     }
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors['email'] = 'Email é inválido.';
+        $errors[] = 'Email é inválido.';
     }
 
     if (!isset($file) || $file['error'] === UPLOAD_ERR_NO_FILE) {
-        $errors['file'] = 'Arquivo é obrigatório.';
+        $errors[] = 'Arquivo é obrigatório.';
     }
 
     // if there are any errors in our errors array, return a success boolean or false
@@ -27,33 +27,32 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data['success'] = false;
         $data['errors']  = $errors;
     } else {
-        $subject = "Message from $subjectPrefix";
-        $body    = '
-            <strong>Name: </strong>'.$name.'<br />
-            <strong>Email: </strong>'.$email.'<br />
-        ';
+        try {
+            $body = '
+                <strong>Nome: </strong>' . $name . '<br />
+                <strong>E-mail: </strong>' . $email . '<br />
+            ';
 
-        $headers  = "MIME-Version: 1.1" . PHP_EOL;
-        $headers .= "Content-type: text/html; charset=utf-8" . PHP_EOL;
-        $headers .= "Content-Transfer-Encoding: 8bit" . PHP_EOL;
-        $headers .= "Date: " . date('r', $_SERVER['REQUEST_TIME']) . PHP_EOL;
-        $headers .= "Message-ID: <" . $_SERVER['REQUEST_TIME'] . md5($_SERVER['REQUEST_TIME']) . '@' . $_SERVER['SERVER_NAME'] . '>' . PHP_EOL;
-        $headers .= "From: " . "=?UTF-8?B?".base64_encode($name)."?=" . " <$email> " . PHP_EOL;
-        $headers .= "Return-Path: $emailTo" . PHP_EOL;
-        $headers .= "Reply-To: $email" . PHP_EOL;
-        $headers .= "X-Mailer: PHP/". phpversion() . PHP_EOL;
-        $headers .= "X-Originating-IP: " . $_SERVER['SERVER_ADDR'] . PHP_EOL;
+            $email = new Email();
+            $email->setAssunto('Envio de procuração');
+            $email->setMensagem($body);
 
-        if (mail($emailTo, "=?utf-8?B?" . base64_encode($subject) . "?=", $body, $headers)) {
-          $data['success'] = true;
-          $data['confirmation'] = 'Parabéns. Sua mensagem foi enviada com sucesso';
-        } else {
-          $data['success'] = false;
-          $data['errors']  = 'Falha ao enviar o email.';
+            $email->addAttachment($file['tmp_name'], $file['name']);
+
+            $emailTo = 'agi@oma.com.br';
+            $email->AddAddress($emailTo, 'Teste');
+
+            if ($email->send()) {
+                $data['success'] = true;
+                $data['confirmation'] = 'Sua mensagem foi enviada com sucesso. Em caso dúvidas, entre em contato pelo e-mail agi@oma.com.br';
+            } else {
+                $data['success'] = false;
+                $data['errors']  = ['Falha ao enviar o email.'];
+            }
+        } catch (Exception $e) {
+            echo $e->getMessage();
         }
     }
 
-    // return all our data to an AJAX call
     echo json_encode($data);
 }
-?>
