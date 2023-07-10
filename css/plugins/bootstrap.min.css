@@ -2885,9 +2885,8 @@ legend {
 
 label {
   display: inline-block;
-  max-width: 100%;
-  margin-bottom: 5px;
-  font-weight: 700
+  max-width: 100%;  
+  font-weight: 200;
 }
 
 input[type=search] {
@@ -3004,9 +3003,7 @@ input[type=search] {
   }
 }
 
-.form-group {
-  margin-bottom: 15px
-}
+
 
 .checkbox, .radio {
   position: relative;
