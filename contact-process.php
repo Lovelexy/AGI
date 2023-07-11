@@ -1,6 +1,7 @@
 <?php
+ini_set('display_errors', 1);
 
-require './Email.php';
+require_once dirname(__FILE__) . '/Email.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $errors = array(); // array to hold validation errors
