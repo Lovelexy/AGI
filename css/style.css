@@ -1134,12 +1134,12 @@ header {
 }
 
 .page-image-bw {
-    background: url("../images/mobile-2.jpg") no-repeat center center;
+    background: url("../images/hero.jpg") no-repeat center center;
       background-position: right -3em bottom 0px!important;
 }
 @media  (min-width:768px) {
   .page-image-bw {
-    background: url("../images/hero.png") no-repeat center center;
+    background: url("../images/mobile-2.jpg") no-repeat center center;
   background-size: cover;
   height: auto;
     width: 100%;
